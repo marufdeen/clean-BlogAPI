@@ -16,7 +16,13 @@ const userDao = {
   async findById(userId) {
     const result = await userModel.findById(userId);
     return result;
-  }, 
+  },
+
+  async findAdmin(userId) {
+    const result = await userModel.findOne({ _id: userId, role: 1 });
+    return result;
+  },
+
   async create(userData) {
     const createUser = await userModel(userData);
     const newUser = await createUser.save();

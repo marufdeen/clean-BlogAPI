@@ -1,8 +1,7 @@
 const userEntity = require("../entities/userEntity");
 const User = require("../data-access/userDao");
 const { comparePassword } = require("../helpers/password");
-const createToken = require("../helpers/createToken");
-const userModel = require("../models/userModel");
+const createToken = require("../helpers/createToken"); 
 
 class userService {
   static async register(userData) {
@@ -38,7 +37,7 @@ class userService {
       const user = await new userEntity(userData).validateLogin();
       if (user.details) return { error: user.details[0].message };
 
-      const userExist = await User.findByEmail(userData.email); // check if the user is registered
+      const userExist = await User.findByEmail(user.getEmail()); // check if the user is registered
       if (!userExist) throw new Error("user does not exist");
       await comparePassword(user.getPassword(), userExist.password);
 
@@ -55,21 +54,44 @@ class userService {
       const user = await new userEntity(userData).validateEdit();
       if(user.details) return { error: user.details[0].message };
 
-      const emailAlreadyExist = await User.findByEmail(userData.email); // check if the email exist
+      const emailAlreadyExist = await User.findByEmail(user.getEmail()); // check if the email exist
       
     if (emailAlreadyExist !== null && emailAlreadyExist.email.length > 0 && emailAlreadyExist.id !== userId
       ) throw new Error("user with this email already exist");
 
-    const updatedUser = await User.update(userId, userData);
-    return { message: 'Profile updated successfully', updatedUser }
+    const editedUser = await User.update(userId, userData);
+    return { message: 'Profile updated successfully', editedUser }
     } catch (error) {
       throw new Error(error.message);
     }
   }
-
-  static async getAllUsers(adminId) {
+  static async setUserStatus(signInId, userId, userData) {
     try {
-        const user = await User.findById(adminId)
+      const user = await User.findById(signInId);
+      if (user.role == 1 && signInId !== userId )  {
+      const userFound = await User.findById(userId);
+        if (userFound) {
+        const userStatus = await User.update(userId, userData )
+        return { message: 'User', userStatus }
+        } else {
+           return 'Sorry, user not found!';
+        }
+       } 
+        if (user.role == 1 && signInId === userId ) {
+          return 'Sorry, You can\'t enable nor disable yourself';
+        }
+        else {
+           return 'Sorry, only admins can access this page';
+       }
+      
+    } catch (error) {
+      
+    }
+  }
+  
+  static async getAllUsers(signInId) {
+    try {
+        const user = await User.findById(signInId)
         if (user.role == 1) {
          const usersFound = await User.findAll();
          return { message: 'success', usersFound }
@@ -81,9 +103,9 @@ class userService {
     }
   } 
 
-  static async getSingleUser(adminId, userId) {
+  static async getSingleUser(signInId, userId) {
     try {
-        const user = await User.findById(adminId)
+        const user = await User.findById(signInId)
         if (user.role == 1) {
          const userFound = await User.findById(userId);
          if (userFound) {
