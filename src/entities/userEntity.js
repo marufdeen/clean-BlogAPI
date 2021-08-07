@@ -15,10 +15,17 @@ class user {
     }
  
     async validateLogin() {
-        const {error}  = await validate.validateUserLogin(this.userData)
+        const {error}  = await validate.validateUserLogin(this.userData);
         if(error) return  error
         return this
-    } 
+    }
+    
+    async validateEdit() {
+        const { error } = await validate.validateUserEdit(this.userData);
+        if(error) return error;
+        return this;
+    }
+
     getUserId() {
         return this.userData.userId
     }
