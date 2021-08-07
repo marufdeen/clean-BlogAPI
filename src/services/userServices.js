@@ -76,7 +76,7 @@ class userService {
         } else {
            return 'Sorry, user not found!';
         }
-       } 
+       }
         if (user.role == 1 && signInId === userId ) {
           return 'Sorry, You can\'t enable nor disable yourself';
         }
