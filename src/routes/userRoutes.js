@@ -1,15 +1,15 @@
-const express = require('express');
-const user = require('../controllers/userController');
+const { Router } = require('express');
+const userController = require('../controllers/userController');
 const  verifyToken = require('../middlewares/verifyToken');
 
-const router = express.Router();
+const router = Router();
 
-router.post('/register', user.register);
-router.post('/login', user.login);
-router.get('/users', verifyToken, user.getAllUsers);
-router.get('/users/:userId', verifyToken, user.getSingleUser);
-router.patch('/editprofile', verifyToken, user.editProfile);
-router.patch('/disableuser/:userId', verifyToken, user.disableUser);
-router.patch('/enableuser/:userId', verifyToken, user.enableUser);
+router.post('/register', userController.register);
+router.post('/login', userController.login);
+router.get('/users', verifyToken, userController.getAllUsers);
+router.get('/users/:userId', verifyToken, userController.getSingleUser);
+router.patch('/editprofile', verifyToken, userController.editProfile);
+router.patch('/disableuser/:userId', verifyToken, userController.disableUser);
+router.patch('/enableuser/:userId', verifyToken, userController.enableUser);
 
 module.exports = router;

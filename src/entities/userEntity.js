@@ -1,4 +1,4 @@
-const {hashPassword} = require("../helpers/password"); 
+const { hashPassword } = require("../helpers/password"); 
 const validate = require('../helpers/userValidator');
 
 class user {

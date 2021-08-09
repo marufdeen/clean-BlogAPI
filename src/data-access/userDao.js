@@ -1,4 +1,3 @@
-const password = require("../helpers/password");
 const userModel = require("../models/userModel");
 
 const userDao = {

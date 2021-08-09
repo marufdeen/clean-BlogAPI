@@ -1,7 +1,7 @@
-const { count } = require("../models/userModel");
 const userService = require("../services/userServices");
 
 class userController {
+
   static async register(req, res) {
     try {
       const user = await userService.register(req.body); // call user service to register user
@@ -75,6 +75,8 @@ class userController {
       return res.status(400).json({ message: error.message });
     }
   }
+
+  
 }
 
 module.exports = userController;
