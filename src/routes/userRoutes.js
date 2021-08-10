@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const userController = require('../controllers/userController');
 const  verifyToken = require('../middlewares/verifyToken');
-
 const multer = require("multer");
 
 const fileUpload = multer({ dest: "./temp" }).single("profilepicture");

@@ -1,7 +1,6 @@
 const userService = require("../services/userServices");
 
 class userController {
-
   static async register(req, res) {
     try {
       const user = await userService.register(req.body); // call user service to register user
@@ -28,19 +27,19 @@ class userController {
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
-  }  
+  }
 
- static async uploadProfilePicture (req, res) {
-   try {
-  const signInId = req.decoded.userId;
-  const uploadImage = await userService.profilePicture(signInId, {profilePicture: req.fileURL });
-   return res.status(200).json(uploadImage)
-     
-   } catch (error) {
-    return res.status(400).json({ message: error.message });
-   }
- 
- }
+  static async uploadProfilePicture(req, res) {
+    try {
+      const signInId = req.decoded.userId;
+      const uploadImage = await userService.profilePicture(signInId, {
+        profilePicture: req.fileURL,
+      });
+      return res.status(200).json(uploadImage);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
   static async enableUser(req, res) {
     try {
       const signInId = req.decoded.userId;
@@ -87,8 +86,6 @@ class userController {
       return res.status(400).json({ message: error.message });
     }
   }
-
-  
 }
 
 module.exports = userController;

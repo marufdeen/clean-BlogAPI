@@ -1,12 +1,11 @@
 const userModel = require("../models/userModel");
 
 const userDao = {
-
   async findAll() {
-    const result = await userModel.find({}, { password: 0 })
+    const result = await userModel.find({}, { password: 0 });
     return result;
   },
-   
+
   async findByEmail(email) {
     const result = await userModel.findOne({ email });
     return result;
@@ -14,11 +13,6 @@ const userDao = {
 
   async findById(userId) {
     const result = await userModel.findById(userId);
-    return result;
-  },
-
-  async findAdmin(userId) {
-    const result = await userModel.findOne({ _id: userId, role: 1 });
     return result;
   },
 
@@ -30,8 +24,11 @@ const userDao = {
   },
 
   async update(userId, userData) {
-    const edit = await userModel.findOneAndUpdate(userId, userData, { useFindAndModify: false , new: true });
-    if (edit) return edit; 
+    const edit = await userModel.findOneAndUpdate(userId, userData, {
+      useFindAndModify: false,
+      new: true,
+    });
+    if (edit) return edit;
     return false;
   },
 
