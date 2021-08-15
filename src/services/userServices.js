@@ -100,26 +100,6 @@ static async profilePicture(signInId, userData) {
     } catch (error) {}
   }
 
-  static async deleteUser(signInId, userId) {
-    try {
-      const user = await userDao.findById(signInId);
-      if (user.role == 1 && signInId !== userId) {
-        const userFound = await userDao.findById(userId);
-        if (userFound) {
-          await userDao.remove(userId);
-          return " User successfully deleted!";
-        } else {
-          return "Sorry, user not found!";
-        }
-      }
-      if (user.role == 1 && signInId === userId) {
-        return "Sorry, You can't delete yourself";
-      } else {
-        return "Sorry, only admins can access this page";
-      }
-    } catch (error) {}
-  }
-
   static async getAllUsers(signInId) {
     try {
       const user = await userDao.findById(signInId);
@@ -150,6 +130,26 @@ static async profilePicture(signInId, userData) {
     } catch (error) {
       throw new Error(error.message);
     }
+  }
+
+  static async deleteUser(signInId, userId) {
+    try {
+      const user = await userDao.findById(signInId);
+      if (user.role == 1 && signInId !== userId) {
+        const userFound = await userDao.findById(userId);
+        if (userFound) {
+          await userDao.remove(userId);
+          return " User successfully deleted!";
+        } else {
+          return "Sorry, user not found!";
+        }
+      }
+      if (user.role == 1 && signInId === userId) {
+        return "Sorry, You can't delete yourself";
+      } else {
+        return "Sorry, only admins can access this page";
+      }
+    } catch (error) {}
   }
 }
 

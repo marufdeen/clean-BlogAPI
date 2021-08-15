@@ -71,6 +71,42 @@ class userController {
       return res.status(400).json({ message: error.message });
     }
   }
+  /**
+   * @author Maruf
+   * @method  GET - getAllUsers
+   * @desc Feature: Get All Users
+   * @param {object} req Request object
+   * @param {object} res Response object
+   * @returns {object} Json data
+   */
+  static async getAllUsers(req, res) {
+    try {
+      const signInId = req.decoded.userId;
+      const users = await userService.getAllUsers(signInId); // call user service to get all users
+      return res.status(200).json(users);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
+
+  /**
+   * @author Maruf
+   * @method  GET - getSingleUser
+   * @desc Feature: Get A specific user
+   * @param {object} req Request object
+   * @param {object} res Response object
+   * @returns {object} Json data
+   */
+  static async getSingleUser(req, res) {
+    try {
+      const signInId = req.decoded.userId;
+      const userId = req.params.userId;
+      const users = await userService.getSingleUser(signInId, userId); // call user service to register user
+      return res.status(200).json(users);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
 
   /**
    * @author Maruf
@@ -113,42 +149,25 @@ class userController {
     }
   }
 
-  /**
+   /**
    * @author Maruf
-   * @method  GET - getAllUsers
-   * @desc Feature: Get All Users
+   * @method  DELETE - deleteUser
+   * @desc Feature: Delete A specific user
    * @param {object} req Request object
    * @param {object} res Response object
-   * @returns {object} Json data
+   * @returns empty data
    */
-  static async getAllUsers(req, res) {
-    try {
-      const signInId = req.decoded.userId;
-      const users = await userService.getAllUsers(signInId); // call user service to get all users
-      return res.status(200).json(users);
-    } catch (error) {
-      return res.status(400).json({ message: error.message });
+    static async deleteUser(req, res) {
+      try {
+        const signInId = req.decoded.userId;
+        const userId = req.params.userId;
+        const deleted = await userService.deleteUser(signInId, userId); // call user service to register user
+        return res.status(200).json(deleted);
+      } catch (error) {
+        return res.status(400).json({ message: error.message });
+      }
     }
-  }
 
-  /**
-   * @author Maruf
-   * @method  GET - getSingleUser
-   * @desc Feature: Get A specific user
-   * @param {object} req Request object
-   * @param {object} res Response object
-   * @returns {object} Json data
-   */
-  static async getSingleUser(req, res) {
-    try {
-      const userId = req.params.userId;
-      const signInId = req.decoded.userId;
-      const users = await userService.getSingleUser(signInId, userId); // call user service to register user
-      return res.status(200).json(users);
-    } catch (error) {
-      return res.status(400).json({ message: error.message });
-    }
-  }
 }
 
 module.exports = userController;

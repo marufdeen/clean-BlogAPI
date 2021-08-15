@@ -5,8 +5,6 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String,
     contentImage: String,
-    createdAt: String,
-    updatedAt: String,
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Post', postSchema);
