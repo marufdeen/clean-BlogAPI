@@ -15,5 +15,6 @@ router.patch('/editprofile', verifyToken, userController.editProfile);
 router.patch("/profilepicture", [verifyToken, fileUpload, upload], userController.uploadProfilePicture);
 router.patch('/disableuser/:userId', verifyToken, userController.disableUser);
 router.patch('/enableuser/:userId', verifyToken, userController.enableUser);
+router.delete('/users/:userId', verifyToken, userController.deleteUser);
 
 module.exports = router;
