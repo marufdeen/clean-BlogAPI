@@ -21,7 +21,7 @@ class userController {
   /**
    * @author Maruf
    * @method  POST - login
-   * @desc Feature: signin the user
+   * @desc Feature: signs in the user
    * @param {object} req Request object
    * @param {object} res Response object
    * @returns {object} Json data
