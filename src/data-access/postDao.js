@@ -12,7 +12,7 @@ const postDao = {
   },
 
   async findByUserId(userId) {
-    const result = await postModel.findById(userId);
+    const result = await postModel.find(userId);
     return result;
   },
   async create(postData) {
@@ -33,7 +33,7 @@ const postDao = {
 
   async remove(postId) {
     await postModel.deleteOne({ _id: postId });
-    return "User Deleted";
+    return "Post Deleted";
   },
 };
 

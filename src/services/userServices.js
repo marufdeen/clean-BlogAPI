@@ -92,7 +92,7 @@ static async profilePicture(signInId, userData) {
           return "Sorry, user not found!";
         }
       }
-      if (user.role == 1 && signInId === userId) {
+      if (user.role == 1 && signInId == userId) {
         return "Sorry, You can't enable or disable yourself";
       } else {
         return "Sorry, only admins can access this page";
@@ -144,7 +144,7 @@ static async profilePicture(signInId, userData) {
           return "Sorry, user not found!";
         }
       }
-      if (user.role == 1 && signInId === userId) {
+      if (user.role == 1 && signInId == userId) {
         return "Sorry, You can't delete yourself";
       } else {
         return "Sorry, only admins can access this page";
