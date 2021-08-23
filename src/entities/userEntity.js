@@ -44,7 +44,8 @@ class user {
 
     getPassword() {
         return this.userData.password;
-    } 
+    }
+    
     async execute(){
         const {error} = await this._validateSignUp(); 
         if(error) return  error
